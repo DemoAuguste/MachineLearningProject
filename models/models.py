@@ -1,5 +1,22 @@
 #!/usr/bin/python
 
+import numpy as np
+from sklearn.decomposition import pca
+import time
+from sklearn import metrics
+from keras.utils import np_utils
+from keras.models import Sequential
+from keras.layers import Dense, Activation, Convolution2D, MaxPooling2D, Flatten
+from keras.layers.core import Dense, Dropout, Activation
+from keras.optimizers import Adam
+from keras.optimizers import RMSprop
+
+def knn_classifier(train_x,train_y, num_classes=10):
+	from sklearn.neighbors import KNeighborsClassifier
+	model = KNeighborsClassifier()
+	model.fit(train_x, train_y)
+	return model
+
 def logistic_regression_classifier(train_x, train_y, num_classes=10):
 	from sklearn.linear_model import LogisticRegression
 	model = LogisticRegression(penalty='l2')

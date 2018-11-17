@@ -6,10 +6,10 @@ import numpy as np
 from sklearn import metrics
 import copy
 
-x_train,y_train,x_test,y_test = load_data(normalize=True)
+x_train,y_train,x_test,y_test = load_data(normalize=False)
 classifiers = ['knn_classifier','logistic_regression_classifier','decision_tree_classifier','svm_classifier','cnn_classifier','dnn_classifier']
 
-def binary_training(model,one_hot=False):
+def binary_training(model,one_hot=False,num_classes=2):
 	binary_trained_model = {}
 	for i in range(10):
 		for j in range(i+1,10):
@@ -23,7 +23,7 @@ def binary_training(model,one_hot=False):
 				temp_train_y = np.row_stack(([0 for i in range(200)],[1 for i in range(200)]))
 				temp_train_y = temp_train_y.flatten()
 			
-			temp_model = eval(model)(temp_train_x,temp_train_y)
+			temp_model = eval(model)(temp_train_x,temp_train_y,num_classes)
 			
 			y_eval = temp_model.predict(temp_train_x)
 			training_accuracy = metrics.accuracy_score(temp_train_y,y_eval)
@@ -60,6 +60,7 @@ def binary_evaluation(model,test_data_x,test_data_y):
 			
 	
 if __name__ == '__main__':
+	classifiers = ['knn_classifier','logistic_regression_classifier','decision_tree_classifier','svm_classifier','cnn_classifier','dnn_classifier']
 	ret = binary_training('svm_classifier',one_hot=False)
 	binary_evaluation(ret, x_test, y_test)
 	
