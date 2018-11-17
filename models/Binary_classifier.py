@@ -6,7 +6,7 @@ import numpy as np
 from sklearn import metrics
 import copy
 
-x_train,y_train,x_test,y_test = load_data(normalize=False)
+x_train,y_train,x_test,y_test = load_data(normalize=True)
 classifiers = ['knn_classifier','logistic_regression_classifier','decision_tree_classifier','svm_classifier','cnn_classifier','dnn_classifier']
 
 def binary_training(model,one_hot=False,num_classes=2):
