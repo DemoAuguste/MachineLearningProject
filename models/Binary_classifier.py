@@ -6,11 +6,11 @@ import numpy as np
 from sklearn import metrics
 import copy
 
-x_train,y_train,x_test,y_test = load_data(normalize=True)
+x_train,y_train,x_test,y_test = load_data(flag=1, normalize=False)
 
 # 这个地方去掉了CNN和RNN，因为在前面的模型中这两个模型最后输出的格式为[0,0,0,0,0,0,0,0,0,0]。
 # 如果要考虑这两个模型，需要修改这两个模型最后的输出层
-classifiers = ['knn_classifier','logistic_regression_classifier','decision_tree_classifier','svm_classifier']
+classifiers = ['knn_classifier','logistic_regression_classifier','decision_tree_classifier','svm_classifier','random_forest_classifier','ada_boost_classifier']
 
 def binary_training(model,one_hot=False,num_classes=2):
 	binary_trained_model = {}
@@ -66,14 +66,17 @@ def all_model_evaluation():
 	for classifier in classifiers:
 		print('=========={}=========='.format(classifier))
 		ret = binary_training(classifier,one_hot=False)
-		binary_evaluation(ret, x_test, y_test)
+		print("training:")
+		binary_evaluation(ret, x_train, y_train) # evaluate training dataset
+		print("testing:")
+		binary_evaluation(ret, x_test, y_test) # evalute test dataset
+		
 			
 	
 if __name__ == '__main__':
 	all_model_evaluation()
 	
-	
-#	ret = binary_training('knn_classifier',one_hot=False)
+#	ret = binary_training('random_forest_classifier',one_hot=False)
 #	binary_evaluation(ret, x_test, y_test)
 	
 #	m = ret[str(1) + '_' + str(5)]
